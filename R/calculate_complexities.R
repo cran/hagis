@@ -1,0 +1,323 @@
+
+#' Calculate Distribution of Complexities by Sample
+#'
+#' @description This function will calculate the distribution of
+#' susceptibilities by sample
+#' @inheritParams summarize_gene
+#' @examples
+#'
+#' # locate system file for import
+#' Ps <- system.file("extdata", "practice_data_set.csv", package = "hagis")
+#'
+#' # import 'practice_data_set.csv'
+#' Ps <- read.csv(Ps)
+#' head(Ps)
+#'
+#' # calculate susceptibilities with a 60 % cutoff value
+#'complexities <- calculate_complexities(x = Ps,
+#'                                       cutoff = 60,
+#'                                       control = "susceptible",
+#'                                       sample = "Isolate",
+#'                                       gene = "Rps",
+#'                                       perc_susc = "perc.susc")
+#' complexities
+#'
+#' summary(complexities)
+#'
+#' # plot complexities frequency or by percentage
+#' plot(complexities, type = "percentage")
+#'
+#' @return `calculate_complexities` returns an object of class
+#' `hagis.complexities`.
+#'
+#' An object of class `hagis.complexities` is a `list` containing the following
+#'  components
+#'   \describe{
+#'     \item{grouped_complexities}{a [data.table::data.table()] object of
+#'       grouped complexities}
+#'     \item{individual_complexities}{a [data.table::data.table()] object of
+#'       individual complexities}
+#'   }
+#' @export calculate_complexities
+
+calculate_complexities <- function(x,
+                                   cutoff,
+                                   control,
+                                   sample,
+                                   gene,
+                                   perc_susc) {
+  
+  # check inptuts and rename fields to work with this package
+  x <- .check_inputs(
+    .x = x,
+    .cutoff = cutoff,
+    .control = control,
+    .sample = sample,
+    .gene = gene,
+    .perc_susc = perc_susc
+  )
+  
+  # CRAN NOTE avoidance
+  distribution <- N_samp <- NULL
+  
+  # The susceptible control is removed from all samples in the data set so that
+  #  it will not affect complexity calculations and a new data set is made that
+  #  it does not contain susceptible controls.
+  x <- subset(x, gene != control)
+  
+  # summarise the reactions, create susceptible.1 field, see
+  # internal_functions.R
+  x <- .binary_cutoff(.x = x, .cutoff = cutoff)
+  
+  # Individual isolate complexities as calculated by grouping by "sample" and
+  # then summarising the number of "1"s for each "sample" in the "susceptible.1"
+  # field
+  individual_complexities <- .create_summary_isolate(.y = x)
+  
+  # Frequency for each complexity (%) ------------------------------------------
+  # Percent frequency is calculated by taking the individual complexity of each
+  # Isolate and grouping all Isolates by their complexity
+  
+  # create an object of the number of genes in the data
+  n_gene <- length(unique(x[, gene]))
+  
+  # create an object of the number of samples in the data
+  n_sample <- length(unique(x[, sample]))
+  
+  # create an empty list to populate with frequency values
+  complexities <- vector(mode = "list", length = n_gene)
+  names(complexities) <- seq_along(1:n_gene)
+  
+  for (i in seq_along(1:n_gene)) {
+    complexities[[i]] <- round(
+      length(
+        which(individual_complexities[, N_samp == i])) / n_sample * 100, 2)
+  }
+  
+  grouped_complexities <- data.table::setDT(utils::stack(complexities))
+  names(grouped_complexities) <- c("frequency", "N_samp")
+  
+  # distribution of complexity (counts)
+  dist <- individual_complexities[, .N, by = N_samp]
+  dist[, N_samp := as.factor(N_samp)]
+  grouped_complexities[dist, on = "N_samp", distribution := i.N]
+  
+  # set NA to 0 for distribution
+  grouped_complexities[is.na(distribution), distribution := 0]
+  data.table::setcolorder(grouped_complexities,
+                          neworder = c("N_samp", "frequency", "distribution"))
+  data.table::setnames(grouped_complexities,
+                       c("complexity", "frequency", "distribution"))
+  complexities <-
+    list(grouped_complexities, individual_complexities)
+  names(complexities) <-
+    c("grouped_complexities", "indvidual_complexities")
+  
+  # Set new class
+  class(complexities) <- union("hagis.complexities", class(x))
+  
+  return(complexities)
+}
+
+#' Plot \pkg{hagis} Complexities
+#' @return A \link[ggplot2]{ggplot2} plot
+#' @method autoplot hagis.complexities
+#' @noRd
+
+autoplot.hagis.complexities <- function(object, type, color = NULL, ...) {
+  # create a single data.frame to use in the ggplot call
+  z <- object[[1]]
+  
+  plot_percentage <- function(.data, .color) {
+    #CRAN Note avoidance
+    complexity <- frequency <- gene <- NULL
+    perc_plot <- ggplot2::ggplot(data = .data,
+                                 ggplot2::aes(x = as.factor(complexity),
+                                              y = frequency)) +
+      ggplot2::labs(y = "Percent of samples",
+                    x = "Complexity") +
+      ggplot2::ggtitle("Percentage of isolates per complexity")
+    
+    if (!is.null(.color)) {
+      perc_plot +
+        ggplot2::geom_col(fill = .color,
+                          colour = .color)
+    } else {
+      perc_plot +
+        ggplot2::geom_col()
+    }
+  }
+  
+  plot_count <- function(.data, .color) {
+    #CRAN Note avoidance
+    complexity <- distribution <- gene <- NULL
+    num_plot <- ggplot2::ggplot(data = .data,
+                                ggplot2::aes(x = as.factor(complexity),
+                                             y = distribution)) +
+      ggplot2::labs(y = "Number of samples",
+                    x = "Complexity") +
+      ggplot2::ggtitle("Number of samples per pathotype complexity")
+    
+    if (!is.null(.color)) {
+      num_plot +
+        ggplot2::geom_col(fill = .color,
+                          colour = .color)
+    } else {
+      num_plot +
+        ggplot2::geom_col()
+    }
+  }
+  
+  if (type == "percentage") {
+    plot_percentage(.data = z, .color = color)
+  } else if (type == "count") {
+    plot_count(.data = z, .color = color)
+  } else {
+    stop(.call = FALSE,
+         "You have entered an invalid `type`.")
+  }
+}
+
+#' Creates Simple Plot Function Wrapper for hagis Complexities Object
+#'
+#' @description Creates a \pkg{ggplot2} object of the frequency of complexity
+#'  (percent per complexity) calculated by [calculate_complexities()] or a
+#'   \pkg{ggplot2} object of the distribution (number per complexity).
+#' @param object a \pkg{hagis} `complexities` object generated by
+#'  [calculate_complexities()]. Character.
+#' @param type a vector of values for which the bar plot is desired. Specify
+#'  whether to return a graph of the frequency of complexities as a percentage,
+#'  `percentage`, or as the count, `count`. Character.
+#' @param color a named or hexadecimal color value to use for the bar color
+#' @param ... passed to the chosen `geom(s)`
+#'
+#' @examples
+#  # locate system file for import
+#' Ps <- system.file("extdata", "practice_data_set.csv", package = "hagis")
+#'
+#' # import 'practice_data_set.csv'
+#' Ps <- read.csv(Ps)
+#'
+#' # calculate susceptibilities with a 60 % cutoff value
+#'complexities <- calculate_complexities(x = Ps,
+#'                                       cutoff = 60,
+#'                                       control = "susceptible",
+#'                                       sample = "Isolate",
+#'                                       gene = "Rps",
+#'                                       perc_susc = "perc.susc")
+#'
+#' # Visualize the distribution (count or actual values)
+#' autoplot(object = complexities, type = "count")
+#'
+#' # Visualize the frequency (percentages)
+#' plot(object = complexities, type = "percentage")
+#'
+#' @param x A \pkg{hagis} `autoplot.hagis.complexities` object generated by
+#'  [autoplot.hagis.complexities()]. Character.
+#' @method plot hagis.complexities
+#' @noRd
+#' @export
+#' @importFrom graphics plot
+
+plot.hagis.complexities <- function(x, ...) {
+  print(autoplot(x, ...))
+}
+
+#' Create Summary Table of Binary Reactions by Sample
+#'
+#' Tally a summary by sample or isolate. This code takes the "Susceptible.1"
+#'  column and summarises it by gene for your total Isolates pathogenic on each
+#'  sample.
+#'
+#' @param x A \pkg{hagis} `complexities` object generated by
+#'  [calculate_complexities()]. Character.
+#' @return A `data.table` that tallies the results by sample
+#' @noRd
+#' @export
+.create_summary_isolate <- function(.y) {
+  susceptible.1 <- NULL
+  .y <- .y[, list(N_samp = sum(susceptible.1)), by = list(sample)]
+  return(.y)
+}
+
+#' Summarises \pkg{hagis} Complexity Object
+#'
+#' Custom [summary()] method for \pkg{hagis} `complexities` objects.
+#'
+#' @param x A hagis class object (a list of two `data.table`s)
+#' @param ... ignored
+#' @noRd
+#' @export
+summary.hagis.complexities <- function(object, ...) {
+  mn <- mean(object$indvidual_complexities$N_samp)
+  sd <- sd(object$indvidual_complexities$N_samp)
+  se <- sqrt(
+    stats::var(object$indvidual_complexities$N_samp) /
+      length(object$indvidual_complexities$N_samp)
+  )
+  
+  x <- data.frame(mn, sd, se)
+  names(x) <- c("mean", "sd", "se")
+  class(x) <- "summary.complexities"
+  x
+}
+
+#' Prints summary.hagis Object for Complexities
+#'
+#' Custom [print()] method for \pkg{hagis} `summary.complexity` objects.
+#'
+#' @param x a summary.complexities object
+#' @param ... ignored
+#' @export
+#' @noRd
+
+print.summary.complexities <- function(x,
+                                       digits = max(3L,
+                                                    getOption("digits") - 3L),
+                                       ...) {
+  cat("\nMean of Complexities\n")
+  cat(x$mean, "\n")
+  cat("\nStandard Deviation of Complexities\n")
+  cat(x$sd, "\n")
+  cat("\nStandard Error of Complexities\n")
+  cat(x$se)
+  invisible(x)
+}
+
+#' Pander Method for hagis Summary Complexities 
+#'
+#' Prints a hagis complexities summary in Pandoc's markdown.
+#' @param x a complexities object
+#' @param caption caption (string) to be shown under the table
+#' @param ... optional parameters passed to raw \code{pandoc.table} function
+#' @importFrom pander pander
+#' @export
+#' @noRd
+pander.summary.complexities <-
+  function(x, caption = attr(x, "caption"), ...) {
+    pander::pandoc.table(data.frame(
+      "Mean" = x[[1]],
+      "SD" = x[[2]],
+      "SE" = x[[3]]
+    ))
+  }
+
+#' Prints hagis.complexities Object
+#'
+#' Custom [print()] method for `hagis.complexity` objects.
+#'
+#' @param x a hagis.complexities object
+#' @param ... ignored
+#' @export
+#' @noRd
+print.hagis.complexities <- function(x,
+                                     digits = max(3L, getOption("digits") - 3L),
+                                     ...) {
+  cat("\nGrouped Complexities\n")
+  print(x[[1]])
+  cat("\n")
+  cat("\nIndividual Complexities\n")
+  print(x[[2]])
+  cat("\n")
+  invisible(x)
+}

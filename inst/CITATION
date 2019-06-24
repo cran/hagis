@@ -1,0 +1,20 @@
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(bibtype = "Manual",
+         title = "{hagis}: Analysis of Plant Pathogen Pathotype Complexities, Distributions and Diversity",
+         author = c(person(c("Austin", "G."), "McCoy"),
+                    person("Zachary", "Noel"),
+                    person(c("Adam", "H."), "Sparks"),
+                    person("Martin", "Chilvers")),
+         year = year,
+         note = note,
+         url = "https://openplantpathology.github.io/hagis/",
+         DOI = "10.5281/zenodo.2619820")
+
+textVersion =
+  paste0("Austin G. McCoy, Zachary Noel, Adam H. Sparks, and Martin Chilvers (",
+         year,
+         "). hagis: Analysis of Plant Pathogen Pathotype Complexities, Distributions and Diversity,
+         Distributions and Diversity",
+         note, ". DOI: 10.5281/zenodo.2619820")
