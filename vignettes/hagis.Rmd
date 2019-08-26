@@ -2,9 +2,6 @@
 title: "hagis: Tools for Analysis of Plant Pathogen Pathotype Complexities, Distributions and Diversity"
 author: "Austin McCoy and Zachary Noel"
 date: "`r Sys.Date()`"
-output: 
-    rmarkdown::html_vignette:
-        toc: true
 vignette: >
   %\VignetteIndexEntry{hagis: Tools for Analysis of Plant Pathogen Pathotype Complexities, Distributions and Diversity}
   %\VignetteEngine{knitr::rmarkdown}
@@ -25,19 +22,21 @@ library(hagis)
 
 The following examples are based on a dataset from Michigan State University _Phytophthora sojae_ surveys for soybean phytophthora root rot pathotyping efforts.
 
-First you'll want to load in your data set, for right now let's use a practice data set made for the *hagis* package and name it `Pathotype.Data`:
+First you'll want to load in your data set, for right now let's use a practice data set made for the *hagis* package and name it `P_sojae_survey`:
 
 ```{r load_data}
-Pathotype.Data <- system.file("extdata", "practice_data_set.csv", package = "hagis")
-Pathotype.Data <- read.csv(Pathotype.Data, stringsAsFactors = FALSE)
-head(Pathotype.Data)
+data(P_sojae_survey)
+P_sojae_survey
 ```
 
 We see in the `gene` column that each gene is prepended with "Rps". We can remove this to make the graphs cleaner and report the genes in tables as we would in a manuscript. Note that this will work for any string you enter as the first value, `pattern`. The second string, `replacement`, is the replacement value, the third, `x`, is where to look and make the changes.
 
 ```{r remove-gene}
-Pathotype.Data$Rps <- gsub(pattern = "Rps ", replacement = "", x = Pathotype.Data$Rps)
-head(Pathotype.Data)
+P_sojae_survey$Rps <-
+  gsub(pattern = "Rps ",
+       replacement = "",
+       x = P_sojae_survey$Rps)
+head(P_sojae_survey)
 ```
 
 This practice data set contains 21 isolates', `Isolate`, virulence data on a set of 14 differential soybean cultivars, `Line`. This package uses the _percentage_ of susceptible, inoculated, plants to determine effective resistance genes, pathotype diversity and frequency, as well as individual isolates pathotypes.
@@ -50,7 +49,7 @@ To help ensure that the proper data are used in calculations, the user is asked 
 
 We have strived to make *hagis* as intuitive to use as possible. Part of that means that we have used the same arguments for the three main functions, `summarize_gene()`, `calculate_complexities()` and `calculate_diversities()`. Each of these functions take the same arguments:
 
-* `x` this is your data set name, _e.g._ `Pathotype.Data` from the example above, allows for the function to identify where it will be pulling these columns (and their associated row values) from to use (_i.e._ your data collection Excel spreadsheet)
+* `x` this is your data set name, _e.g._ `P_sojae_survey` from the example above, allows for the function to identify where it will be pulling these columns (and their associated row values) from to use (_i.e._ your data collection Excel spreadsheet)
 
 * `cutoff` this value sets the cutoff for susceptible reactions. For example, `cutoff = 60` means that all genes with 60% or more of the plants rated susceptible will be treated as susceptible. You can change this to whatever percentage you require for your study.
 
@@ -65,23 +64,27 @@ We have strived to make *hagis* as intuitive to use as possible. Part of that me
 Ordinarily you would use functions in _hagis_ or other R packages like this:
 
 ```{r example-function, eval=FALSE}
-Rps.summary <- summarize_gene(x = Pathotype.Data,
-                             cutoff = 60,
-                             control = "susceptible",
-                             sample = "Isolate",
-                             gene = "Rps",
-                             perc_susc = "perc.susc")
+Rps.summary <- summarize_gene(
+  x = P_sojae_survey,
+  cutoff = 60,
+  control = "susceptible",
+  sample = "Isolate",
+  gene = "Rps",
+  perc_susc = "perc.susc"
+)
 ```
 
 However, because the functions share arguments we can create a `list()` of arguments and share them with some of the functions from *hagis*. First, we make a list of the arguments that `summarize_gene()`, `calculate_diversities()` and `calculate_complexities()` use that specify our inputs based on our example data:
 
 ```{r shared-args}
-hagis_args <- list(x = Pathotype.Data,
-                   cutoff = 60,
-                   control = "susceptible",
-                   sample = "Isolate",
-                   gene = "Rps",
-                   perc_susc = "perc.susc")
+hagis_args <- list(
+  x = P_sojae_survey,
+  cutoff = 60,
+  control = "susceptible",
+  sample = "Isolate",
+  gene = "Rps",
+  perc_susc = "perc.susc"
+)
 ```
 
 Now that we have a list of arguments, we can now save time entering the same data for each function and also avoid typos or entering different cutoff values, etc. between the functions.
@@ -90,9 +93,9 @@ Now that we have a list of arguments, we can now save time entering the same dat
 
 ## Determination of Effective Resistance Genes
 
-Below is an example of tables and graphics that can be produced using the `summarize_gene()` function to identify effective resistance genes tested against the sampled *Phytophthora sojae* population. 
+Below is an example of tables and graphics that can be produced using the `summarize_gene()` function to identify effective resistance genes tested against the sampled *Phytophthora sojae* population.
 
-The `summarize_gene()` function allows you to produce a detailed table showing the number of isolates each gene is susceptible to (`N_susc`), as well as offering a percentage of the isolates tested which are pathogenic on each gene (`percent_pathogenic`).
+The `summarize_gene()` function allows you to produce a detailed table showing the number of virulent isolates (`N_virulent_isolates`), as well as offering a percentage of the isolates tested which are pathogenic on each gene (`percent_pathogenic`).
 
 ```{r, echo=TRUE}
 Rps.summary <- do.call(summarize_gene, hagis_args)
@@ -100,7 +103,7 @@ Rps.summary <- do.call(summarize_gene, hagis_args)
 Rps.summary
 ```
 
-Using the _pander_ library we can make the table much more attractive in Markdown.
+Using the _pander_ library we can make the table much more attractive in RMarkdown.
 
 ```{r pander-print-Rps, echo=TRUE}
 library(pander)
@@ -110,14 +113,14 @@ pander(Rps.summary)
 
 ### Plotting Rps Summary Data
 
-*hagis* also provides functions to quickly graph your data using `ggplot2`. 
+*hagis* also provides functions to quickly graph your data using `ggplot2`.
 
-Two functions are provided to plot the summary depending on your needs. If you need the frequency, use `plot(Rps.summary, type = "percentage")`, or if you desire the distribution `plot(Rps.summary, type = "count")`. Both return the same graph, only the y-axis change; percent for frequency and n for distribution.
+Two functions are provided to plot the summary depending on your needs. If you need the frequency, use `autoplot(Rps.summary, type = "percentage")`, or if you desire the distribution `autoplot(Rps.summary, type = "count")`. Both return the same graph, only the y-axis change; percent for frequency and n for distribution.
 
 ```{r plot-summary, echo=TRUE}
-plot(Rps.summary, type = "percentage")
+autoplot(Rps.summary, type = "percentage")
 
-plot(Rps.summary, type = "count")
+autoplot(Rps.summary, type = "count")
 ```
 
 ***
@@ -126,6 +129,9 @@ plot(Rps.summary, type = "count")
 
 Pathotype frequency, distribution as well as statistics such as mean pathotype complexity can be calculated using the `calculate_complexities()` function. This function will return
 a `list()` of two `data.table()` objects, `grouped_complexities` and `individual_complexities`.
+`grouped_complexities` returns a `list()` as a `data.table()` object showing the frequency and distribution of pathotype complexities for the sampled population.
+`individual_complexities()` returns a `list()` as a `data.table()` object showing each individual isolates pathotype complexity.
+An isolates pathotype complexity refers to the number of resistance genes that it is able to overcome and cause disease on, *i.e.*, a pathotype complexity of "7" would mean that isolate can cause disease on 7 different resistance genes.
 
 ```{r complexities, echo=TRUE, message=FALSE, warning=FALSE}
 complexities <- do.call(calculate_complexities, hagis_args)
@@ -133,7 +139,7 @@ complexities <- do.call(calculate_complexities, hagis_args)
 complexities
 ```
 
-Once again, using _pander_ we can make these tables much more attractive in Markdown. Since `complexities` is a `list()` object, we can refer to each object directly by name and print them as follows.
+Once again, using _pander_ we can make these tables much more attractive in RMarkdown. Since `complexities` is a `list()` object, we can refer to each object directly by name and print them as follows.
 
 ```{r pander-print-complexities}
 pander(complexities$grouped_complexities)
@@ -149,19 +155,51 @@ pander(summary(complexities))
 
 ### Plotting Complexities Data
 
-Two functions are provided to plot the complexities depending on your needs. If you need the frequency, use `plot(complexties, type = "percentage")`, or if you desire the distribution `plot(complexities, type = "count")`. Both return the same graph, only the y-axis change; percent for frequency and n for distribution.
+Two functions are provided to plot the complexities depending on your needs. If you need the frequency, use `autoplot(complexties, type = "percentage")`, or if you desire the distribution `autoplot(complexities, type = "count")`. Both return the same graph, only the y-axis change; percent for frequency and n for distribution.
 
 ```{r complexities-plot}
-plot(complexities, type = "percentage")
+autoplot(complexities, type = "percentage")
 
-plot(complexities, type = "count")
+autoplot(complexities, type = "count")
 ```
 
 ***
 
 ## Diversity Indices, Frequency of Unique Pathotypes and Individual Isolate Pathotypes
 
-Diversity indices are extremely useful when trying to identify differences between two populations. Here, pathotype diversities are calculated for the sample population using the `calculate_diversities()` function. Likewise, individual isolates' pathotypes, number of isolates used in the study, number of pathotypes within the study are calculated. 
+Diversity indices are extremely useful when trying to identify differences between two populations. Here, pathotype diversities are calculated for the isolate population using the `calculate_diversities()` function. Likewise, individual isolates' pathotypes, number of isolates used in the study, number of pathotypes within the study are calculated.
+
+Five diversity indices are calculated when calling `calculate_diversities()`.
+
+* Simple diversity index, which will show the proportion of unique pathotypes
+   to total samples. As the values gets closer to 1, there is greater
+   diversity in pathoypes within the population. Simple diversity is
+   calculated as:
+   $$D = \frac{Np}{Ns}$$
+   where $Np$ is the number of pathotypes and $Ns$ is the number of
+   samples.
+
+ * Gleason diversity index, an alternate version of Simple diversity index, is
+    less sensitive to sample size than the Simple index.
+    $$D = \frac{ (Np - 1) }{ log(Ns)}$$
+    Where $Np$ is the number of pathotypes and $Ns$ is the number of
+    samples.
+
+ * Shannon diversity index is typically between 1.5 and 3.5, as richness and
+   evenness of the population increase, so does the Shannon index value.
+   $$D = -\sum_{i = 1}^{R} p_i \log p_i$$
+   Where $p_i$ is the proportional abundance of species $i$.
+
+ * Simpson diversity index values range from 0 to 1, 1 represents high
+    diversity and 0 represents no diversity. Where diversity is calcuated as:
+    $$D = \sum_{i = 1}^{R} p_i^2$$
+
+ * Evenness ranges from 0 to 1, as the Eveness value approaches 1, there is a
+    more even distribution of each pathoype's frequency within the population.
+    Where Evenness is calculated as:
+    $$D = \frac{H'}{log(Np)}$$
+    where $H'$ is the Shannon diversity index and $Np$ is the number
+    of pathotypes.
 
 ```{r calculate-diversities, echo=TRUE}
 diversity <- do.call(calculate_diversities, hagis_args)
@@ -193,14 +231,14 @@ individual_pathotypes(diversity)
 
 # Advanced Plotting {#AdvancedPlotting}
 
-## *hagis* plot Objects
+## *hagis* autoplot Objects
 
-Since *hagis* uses `ggplot2` to generate its plots, you can easily theme the outputs using common `ggplot2` themes and other options.
+Since *hagis* uses `ggplot2` to generate its plots, you can easily theme the outputs using common `ggplot2` themes and other options provided by *hagis* directly through `autoplot()`.
 
 ```{r set-up-adv.plot}
 library(ggplot2)
 
-Rps.plot <- plot(Rps.summary, type = "percentage")
+Rps.plot <- autoplot(Rps.summary, type = "percentage")
 
 Rps.plot
 ```
@@ -222,11 +260,8 @@ Set the font to be a bold-face serif family font.
 
 ```{r change-plot-font}
 Rps.plot <- Rps.plot +
-  theme(
-    text = element_text(
-      face = "bold",
-      family = "serif"
-    ))
+  theme(text = element_text(face = "bold",
+                            family = "serif"))
 
 Rps.plot
 ```
@@ -243,16 +278,28 @@ Rps.plot <- Rps.plot +
 Rps.plot
 ```
 
-### Use Colors in plot Objects
+### Use Colors in Autoplot Objects
 
 You can use named, *e.g.* "red", "yellow", "blue" colors in R or you can use custom hexadecimal color codes. Illustrated below is using MSU Green, hex code #18453b, using `theme_bw()` with a serif font.
 
 ```{r use-Colors}
-plot(Rps.summary, type = "percentage", color = "#18453b") +
+autoplot(Rps.summary, type = "percentage", color = "#18453b") +
   theme_bw() +
-  theme(
-    text = element_text(
-      face = "bold",
-      family = "serif"
-    ))
+  theme(text = element_text(face = "bold",
+                            family = "serif"))
+```
+
+### Sorting the x-axis
+
+You can sort the x-axis of any graph produced using `autoplot()` in an `ascending` or
+`descending` order using the `order` parameter in `autoplot()`.
+
+```{r sort-axis}
+autoplot(Rps.summary,
+          type = "percentage",
+          color = "#18453b",
+          order = "ascending") +
+  theme_bw() +
+  theme(text = element_text(face = "bold",
+                            family = "serif"))
 ```

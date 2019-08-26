@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_complexities.R
 \name{calculate_complexities}
 \alias{calculate_complexities}
-\title{Calculate Distribution of Complexities by Sample}
+\title{Calculate distribution of complexities by sample}
 \usage{
 calculate_complexities(x, cutoff, control, sample, gene, perc_susc)
 }
@@ -12,14 +12,14 @@ calculate_complexities(x, cutoff, control, sample, gene, perc_susc)
 \item{cutoff}{value for percent susceptible cutoff. Numeric.}
 
 \item{control}{value used to denote the susceptible control in the \code{gene}
-field. Character.}
+column. Character.}
 
-\item{sample}{field providing the unique identification for each sample being
+\item{sample}{column providing the unique identification for each sample being
 tested. Character.}
 
-\item{gene}{field providing the gene(s) being tested. Character.}
+\item{gene}{column providing the gene(s) being tested. Character.}
 
-\item{perc_susc}{field providing the percent susceptible reactions.
+\item{perc_susc}{column providing the percent susceptible reactions.
 Character.}
 }
 \value{
@@ -41,25 +41,20 @@ susceptibilities by sample
 }
 \examples{
 
-# locate system file for import
-Ps <- system.file("extdata", "practice_data_set.csv", package = "hagis")
+# Using the built-in data set, P_sojae_survey
+data(P_sojae_survey)
 
-# import 'practice_data_set.csv'
-Ps <- read.csv(Ps)
-head(Ps)
+P_sojae_survey
 
 # calculate susceptibilities with a 60 \% cutoff value
-complexities <- calculate_complexities(x = Ps,
-                                      cutoff = 60,
-                                      control = "susceptible",
-                                      sample = "Isolate",
-                                      gene = "Rps",
-                                      perc_susc = "perc.susc")
+complexities <- calculate_complexities(x = P_sojae_survey,
+                                       cutoff = 60,
+                                       control = "susceptible",
+                                       sample = "Isolate",
+                                       gene = "Rps",
+                                       perc_susc = "perc.susc")
 complexities
 
 summary(complexities)
-
-# plot complexities frequency or by percentage
-plot(complexities, type = "percentage")
 
 }

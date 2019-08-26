@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_diversities.R
 \name{individual_pathotypes}
 \alias{individual_pathotypes}
-\title{Prints Individual Pathotypes for Each Sample}
+\title{Prints individual pathotypes for each sample}
 \usage{
 individual_pathotypes(x, ...)
 }
@@ -21,15 +21,13 @@ Print an object from a \code{hagis.diversities} object with individual pathotype
 console.
 }
 \examples{
-# locate system file for import
-Ps <- system.file("extdata", "practice_data_set.csv", package = "hagis")
+# Using the built-in data set, P_sojae_survey
+data(P_sojae_survey)
 
-# import 'practice_data_set.csv'
-Ps <- read.csv(Ps)
-head(Ps)
+P_sojae_survey
 
 # calculate susceptibilities with a 60 \% cutoff value
-diversities <- calculate_diversities(x = Ps,
+diversities <- calculate_diversities(x = P_sojae_survey,
                                      cutoff = 60,
                                      control = "susceptible",
                                      sample = "Isolate",

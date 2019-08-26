@@ -1,21 +1,18 @@
 
-# data.table special symbols for package-wide use
-.SD <- .N <- .I <- .GRP <- .BY <- .EACHI <- i.N <- NULL
-
-#' Check User Inputs
+#' Check user inputs
 #'
 #' Checks and validates user inputs before running functions
 #'
 #' @param .x a `data.table` containing the values to be summarised
 #' @param .cutoff value for percent susceptible cutoff. Numeric.
 #' @param .control value used to denote the susceptible control in the `gene`
-#'  field. Character.
-#' @param .sample field providing the unique identification for each sample
+#'  column. Character.
+#' @param .sample column providing the unique identification for each sample
 #'  being tested. Character.
-#' @param .gene field providing the gene(s) being tested. Character.
-#' @param .perc_susc field providing the percent susceptible reactions.
+#' @param .gene column providing the gene(s) being tested. Character.
+#' @param .perc_susc column providing the percent susceptible reactions.
 #' Character.
-#' @importFrom data.table ":="
+#' @import data.table
 #' @noRd
 .check_inputs <- function(.x, .cutoff, .control, .sample, .gene, .perc_susc) {
   # CRAN NOTE avoidance
@@ -31,25 +28,31 @@
          "you have provided an improperly formatted item.\n",
          "Please check and try again.")
   }
-  data.table::setDT(.x)
-  data.table::setnames(.x, c(.perc_susc, .gene, .sample),
+  dt <- as.data.table(.x)
+  setnames(dt, c(.perc_susc, .gene, .sample),
                        c("perc_susc", "gene", "sample"))
   
+  # validate that perc_susc is numeric
+  if (!is.numeric(dt$perc_susc))
+    stop("Data in the column `perc_susc` must be numeric.")
+  # validate that no values in perc_susc < 0
+  if (any(dt$perc_susc < 0, na.rm = TRUE))
+    stop("Data in the column `perc_susc` must be non-negative.")
+  
   # set col types for the necessary cols
-  .x[, sample := as.character(sample)]
-  .x[, perc_susc := as.numeric(perc_susc)]
-  .x[, gene := as.character(gene)]
-  return(.x)
+  dt[, sample := as.character(sample)]
+  dt[, gene := as.character(gene)]
+  return(dt)
 }
 
-#' Create Binary Reaction Value
+#' Create binary reaction value
 #'
 #' Adds a column of 1 or 0 for the susceptible reaction cutoff
 #'
 #' @param .x A `data.table` containing the values to be summarised
 #' @param .cutoff Cutoff value for susceptibility
 #' @return A `data.table` that tallies the results by gene
-#' @importFrom data.table ":="
+#' @import data.table
 #' @noRd
 .binary_cutoff <- function(.x, .cutoff) {
   susceptible.1 <- perc_susc <- NULL

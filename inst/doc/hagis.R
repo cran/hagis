@@ -8,29 +8,35 @@ knitr::opts_chunk$set(
 library(hagis)
 
 ## ----load_data-----------------------------------------------------------
-Pathotype.Data <- system.file("extdata", "practice_data_set.csv", package = "hagis")
-Pathotype.Data <- read.csv(Pathotype.Data, stringsAsFactors = FALSE)
-head(Pathotype.Data)
+data(P_sojae_survey)
+P_sojae_survey
 
 ## ----remove-gene---------------------------------------------------------
-Pathotype.Data$Rps <- gsub(pattern = "Rps ", replacement = "", x = Pathotype.Data$Rps)
-head(Pathotype.Data)
+P_sojae_survey$Rps <-
+  gsub(pattern = "Rps ",
+       replacement = "",
+       x = P_sojae_survey$Rps)
+head(P_sojae_survey)
 
 ## ----example-function, eval=FALSE----------------------------------------
-#  Rps.summary <- summarize_gene(x = Pathotype.Data,
-#                               cutoff = 60,
-#                               control = "susceptible",
-#                               sample = "Isolate",
-#                               gene = "Rps",
-#                               perc_susc = "perc.susc")
+#  Rps.summary <- summarize_gene(
+#    x = P_sojae_survey,
+#    cutoff = 60,
+#    control = "susceptible",
+#    sample = "Isolate",
+#    gene = "Rps",
+#    perc_susc = "perc.susc"
+#  )
 
 ## ----shared-args---------------------------------------------------------
-hagis_args <- list(x = Pathotype.Data,
-                   cutoff = 60,
-                   control = "susceptible",
-                   sample = "Isolate",
-                   gene = "Rps",
-                   perc_susc = "perc.susc")
+hagis_args <- list(
+  x = P_sojae_survey,
+  cutoff = 60,
+  control = "susceptible",
+  sample = "Isolate",
+  gene = "Rps",
+  perc_susc = "perc.susc"
+)
 
 ## ---- echo=TRUE----------------------------------------------------------
 Rps.summary <- do.call(summarize_gene, hagis_args)
@@ -43,9 +49,9 @@ library(pander)
 pander(Rps.summary)
 
 ## ----plot-summary, echo=TRUE---------------------------------------------
-plot(Rps.summary, type = "percentage")
+autoplot(Rps.summary, type = "percentage")
 
-plot(Rps.summary, type = "count")
+autoplot(Rps.summary, type = "count")
 
 ## ----complexities, echo=TRUE, message=FALSE, warning=FALSE---------------
 complexities <- do.call(calculate_complexities, hagis_args)
@@ -61,9 +67,9 @@ pander(complexities$indvidual_complexities)
 pander(summary(complexities))
 
 ## ----complexities-plot---------------------------------------------------
-plot(complexities, type = "percentage")
+autoplot(complexities, type = "percentage")
 
-plot(complexities, type = "count")
+autoplot(complexities, type = "count")
 
 ## ----calculate-diversities, echo=TRUE------------------------------------
 diversity <- do.call(calculate_diversities, hagis_args)
@@ -81,7 +87,7 @@ individual_pathotypes(diversity)
 ## ----set-up-adv.plot-----------------------------------------------------
 library(ggplot2)
 
-Rps.plot <- plot(Rps.summary, type = "percentage")
+Rps.plot <- autoplot(Rps.summary, type = "percentage")
 
 Rps.plot
 
@@ -93,11 +99,8 @@ Rps.plot
 
 ## ----change-plot-font----------------------------------------------------
 Rps.plot <- Rps.plot +
-  theme(
-    text = element_text(
-      face = "bold",
-      family = "serif"
-    ))
+  theme(text = element_text(face = "bold",
+                            family = "serif"))
 
 Rps.plot
 
@@ -108,11 +111,17 @@ Rps.plot <- Rps.plot +
 Rps.plot
 
 ## ----use-Colors----------------------------------------------------------
-plot(Rps.summary, type = "percentage", color = "#18453b") +
+autoplot(Rps.summary, type = "percentage", color = "#18453b") +
   theme_bw() +
-  theme(
-    text = element_text(
-      face = "bold",
-      family = "serif"
-    ))
+  theme(text = element_text(face = "bold",
+                            family = "serif"))
+
+## ----sort-axis-----------------------------------------------------------
+autoplot(Rps.summary,
+          type = "percentage",
+          color = "#18453b",
+          order = "ascending") +
+  theme_bw() +
+  theme(text = element_text(face = "bold",
+                            family = "serif"))
 

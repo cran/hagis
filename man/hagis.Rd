@@ -4,7 +4,7 @@
 \name{hagis}
 \alias{hagis}
 \alias{hagis-package}
-\title{Tools for Analysis of Plant Pathogen Pathotype Complexities, Distributions and Diversity}
+\title{Tools for analysis of plant pathogen pathotype complexities, distributions and diversity}
 \description{
 Analysis of plant pathogen pathotype survey data.  Functions
   provided calculate distribution of susceptibilities, distribution of
@@ -24,6 +24,6 @@ Useful links:
 
 }
 \author{
-Austin McCoy, mccoyaus@msu.edu and Zachary Noel, noelzach@msu.edu and
+Austin G. McCoy, mccoyaus@msu.edu and Zachary Noel, noelzach@msu.edu and
 Adam H. Sparks, adam.sparks@usq.edu.au and Martin Chilvers, chilvers@msu.edu
 }

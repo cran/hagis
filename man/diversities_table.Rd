@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_diversities.R
 \name{diversities_table}
 \alias{diversities_table}
-\title{Prints Table of Diversities}
+\title{Prints table of diversities}
 \usage{
 diversities_table(x, ...)
 }
@@ -20,15 +20,13 @@ The resulting object is a \link{pander} table (a text object for Markdown) for
 ease of use in reporting and viewing in the console.
 }
 \examples{
-# locate system file for import
-Ps <- system.file("extdata", "practice_data_set.csv", package = "hagis")
+# Using the built-in data set, P_sojae_survey
+data(P_sojae_survey)
 
-# import 'practice_data_set.csv'
-Ps <- read.csv(Ps)
-head(Ps)
+P_sojae_survey
 
 # calculate susceptibilities with a 60 \% cutoff value
-diversities <- calculate_diversities(x = Ps,
+diversities <- calculate_diversities(x = P_sojae_survey,
                                      cutoff = 60,
                                      control = "susceptible",
                                      sample = "Isolate",
