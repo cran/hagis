@@ -6,7 +6,7 @@
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/hagis)](https://cran.r-project.org/package=hagis)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/hagis)](https://cran.r-project.org/package=hagis)
 [![Travis Build
 Status](https://travis-ci.org/openplantpathology/hagis.svg?branch=master)](https://travis-ci.org/openplantpathology/hagis)
 [![Appveyor Build
@@ -87,21 +87,25 @@ When you use *hagis*, please cite by using:
 ``` r
 citation("hagis")
 #> 
-#> McCoy AG, Noel Z, Sparks AH, Chilvers M (????). _hagis: Analysis
-#> of Plant Pathogen Pathotype Complexities, Distributions and
-#> Diversity_. doi: 10.5281/zenodo.2619820 (URL:
-#> https://doi.org/10.5281/zenodo.2619820), R package version
-#> 2.0.0.9000, <URL: https://openplantpathology.github.io/hagis/>.
+#> Thank you for citing `hagis`.  To cite hagis in publications, please
+#> use both the MPMI citation and the package version citation for
+#> reproducibility purposes.
 #> 
-#> A BibTeX entry for LaTeX users is
+#>   Austin Glenn McCoy, Zachary A. Noel, Adam H. Sparks and Martin I.
+#>   Chilvers (2019). `hagis', an R Package Resource for Pathotype
+#>   Analysis of Phytophthora sojae Populations Causing Stem and Root Rot
+#>   of Soybean. Molecular Plant-Microbe Interactions 32.12 (Nov 2019) p.
+#>   1574-1576. DOI: 10.1094/MPMI-07-19-0180-A
 #> 
-#>   @Manual{,
-#>     title = {{hagis}: Analysis of Plant Pathogen Pathotype Complexities, Distributions and Diversity},
-#>     author = {Austin G. McCoy and Zachary Noel and Adam H. Sparks and Martin Chilvers},
-#>     note = {R package version 2.0.0.9000},
-#>     url = {https://openplantpathology.github.io/hagis/},
-#>     doi = {10.5281/zenodo.2619820},
-#>   }
+#> McCoy AG, Noel ZA, Sparks AH, Chilvers MI (????). _hagis: Analysis of
+#> Plant Pathogen Pathotype Complexities, Distributions and Diversity_.
+#> doi: 10.5281/zenodo.2619820 (URL:
+#> https://doi.org/10.5281/zenodo.2619820), R package version 3.0.0.9000,
+#> <URL: https://openplantpathology.github.io/hagis/>.
+#> 
+#> To see these entries in BibTeX format, use 'print(<citation>,
+#> bibtex=TRUE)', 'toBibtex(.)', or set
+#> 'options(citation.bibtex.max=999)'.
 ```
 
 Please note that the *hagis* project is released with a [Contributor
