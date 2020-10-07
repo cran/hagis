@@ -1,5 +1,4 @@
 
-
 # test calculate diversities ---------------------------------------------------
 context("calculate_diversities()")
 data(P_sojae_survey)
@@ -103,9 +102,9 @@ test_that("calculate_diversities() stops if lacking all params", {
 
 test_that("calculate_diversities() stops if data are not valid", {
   # add non-numeric data to `perc.susc`
-  x <- P_sojae_survey[1,]
+  x <- P_sojae_survey[1, ]
   x[, 11] <- "X"
-  
+
   P_sojae_survey <- rbind(P_sojae_survey, x)
   expect_error(
     calculate_diversities(
@@ -118,13 +117,13 @@ test_that("calculate_diversities() stops if data are not valid", {
     ),
     regexp = "Data in the column `perc_susc` must be numeric."
   )
-  
+
   rm(P_sojae_survey)
   data(P_sojae_survey)
   # add value < 0 to data
-  x <- P_sojae_survey[1,]
+  x <- P_sojae_survey[1, ]
   x[, 11] <- -1
-  
+
   P_sojae_survey <- rbind(P_sojae_survey, x)
   expect_error(
     calculate_diversities(
@@ -157,8 +156,7 @@ test_that("print.hagis.diversities() returns a proper summary", {
 context("pander.hagis.diversities")
 test_that("pander.hagis.diversities returns a proper table of indices and
           caption",
-          {
-            x <- utils::capture.output(pander::pander(diversities))
+          {x <- utils::capture.output(pander::pander(diversities))
             expect_equal(
               head(x),
               c(

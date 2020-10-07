@@ -14,8 +14,8 @@ summarize_gene(x, cutoff, control, sample, gene, perc_susc)
 \item{control}{value used to denote the susceptible control in the \code{gene}
 column. Character.}
 
-\item{sample}{column providing the unique identification for each sample being
-tested. Character.}
+\item{sample}{column providing the unique identification for each sample
+being tested. Character.}
 
 \item{gene}{column providing the gene(s) being tested. Character.}
 
@@ -23,8 +23,8 @@ tested. Character.}
 Character.}
 }
 \value{
-returns an object of \code{\link[=class]{class()}} \code{hagis.gene.summary}
-An object of class \code{hagis.summaries} is a\cr \code{\link[data.table:data.table]{data.table::data.table()}}
+returns an object of \link{class} \code{hagis.gene.summary}
+An object of class \code{hagis.gene.summary} is a\cr \code{\link[data.table:data.table]{data.table::data.table()}}
 containing the following components columns
 \describe{
 \item{gene}{the gene}

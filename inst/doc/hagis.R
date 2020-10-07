@@ -5,11 +5,10 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.height = 4
 )
-library(hagis)
 
 ## ----load_data----------------------------------------------------------------
-data(P_sojae_survey)
-P_sojae_survey
+library(hagis)
+head(P_sojae_survey)
 
 ## ----remove-gene--------------------------------------------------------------
 P_sojae_survey$Rps <-
