@@ -1,6 +1,11 @@
 ## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 
+required <- c("ape", "vegan", "dplyr")
+
+if (!all(sapply(required, requireNamespace, quietly = TRUE)))
+  knitr::opts_chunk$set(eval = FALSE)
+
 ## ----libraries, message=FALSE, warning=FALSE----------------------------------
 library(ape)
 library(vegan)

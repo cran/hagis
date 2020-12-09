@@ -1,3 +1,13 @@
+# hagis 3.1.1
+
+## Minor Changes
+
+* Use _ape_, _vegan_, _dplyr_ and _vidiffr_ packages conditionally
+
+* Remove _covr_ from Suggests
+
+* Better documentation formatting
+
 # hagis 3.1.0
 
 ## Major Changes
