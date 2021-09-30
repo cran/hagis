@@ -7,11 +7,11 @@ if (!all(sapply(required, requireNamespace, quietly = TRUE)))
   knitr::opts_chunk$set(eval = FALSE)
 
 ## ----libraries, message=FALSE, warning=FALSE----------------------------------
-library(ape)
-library(vegan)
-library(dplyr)
-library(hagis)
-library(ggplot2)
+library("ape")
+library("vegan")
+library("dplyr")
+library("hagis")
+library("ggplot2")
 
 ## ----load-data----------------------------------------------------------------
 head(P_sojae_survey) # survey sample data
@@ -53,11 +53,13 @@ princoor.pathotype <- pcoa(P_sojae_survey.matrix.jaccard)
 barplot(princoor.pathotype$values$Relative_eig[1:10])
 
 ## ----axis-percent-------------------------------------------------------------
+# Dimension (i.e., Axis 1 (PCOA1))
 Axis1.percent <-
-  princoor.pathotype$values$Relative_eig[[1]] * 100 # Dimension (i.e., Axis 1 (PCOA1))
+  princoor.pathotype$values$Relative_eig[[1]] * 100
 
+# Dimension (i.e., Axis 2 (PCOA2))
 Axis2.percent <-
-  princoor.pathotype$values$Relative_eig[[2]] * 100 # Dimension (i.e., Axis 2 (PCOA2))
+  princoor.pathotype$values$Relative_eig[[2]] * 100
 
 Axis1.percent
 
@@ -98,21 +100,28 @@ ggplot(data = princoor.pathotype.data, aes(x = X, y = Y)) +
 ## ----create-group-lists-------------------------------------------------------
 groups <- factor(c(rep("Michigan_1", 11), rep("Michigan_2", 10)))
 
-length(groups) # this number shows how many isolates are in all "groups" lists combined
+# this number shows how many isolates are in all "groups" lists combined
+length(groups)
 
-length(unique(P_sojae_survey$Isolate)) # this shows the number of isolates within your data set, these numbers should match for downstream analyses to work!! 
+# this shows the number of isolates within your data set, these numbers should
+# match for downstream analyses to work!! 
+length(unique(P_sojae_survey$Isolate))
 
 ## ----beta-dispersion----------------------------------------------------------
+ # calculates the beta-dispersion for each group, when comparing 2 or more
 pathotype.disp <-
-  betadisper(P_sojae_survey.matrix.jaccard, groups) # calculates the beta-dispersion for each group, when comparing two or more groups
+  betadisper(P_sojae_survey.matrix.jaccard, groups)
 
-pathotype.disp.anova <- anova(pathotype.disp) # tests if centroid distances are significantly different from each other
+# tests if centroid distances are significantly different from each other
+pathotype.disp.anova <- anova(pathotype.disp) 
 pathotype.disp.anova
 
-pathotype.disp.TukeyHSD <- TukeyHSD(pathotype.disp) # test significance between each group
+# test significance between each group
+pathotype.disp.TukeyHSD <- TukeyHSD(pathotype.disp)
 pathotype.disp.TukeyHSD
 
-plot(pathotype.disp, hull = FALSE, ellipse = TRUE) # plot showing the dispersion for each group
+# plot showing the dispersion for each group
+plot(pathotype.disp, hull = FALSE, ellipse = TRUE)
 
 ## ----adonis-------------------------------------------------------------------
 pathotype.adonis <- adonis(P_sojae_survey.matrix.jaccard ~ groups)

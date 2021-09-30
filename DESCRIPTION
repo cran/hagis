@@ -1,7 +1,7 @@
 Package: hagis
 Title: Analysis of Plant Pathogen Pathotype Complexities, Distributions
         and Diversity
-Version: 3.1.1
+Version: 3.1.2
 Authors@R: c(
   person(given = "Austin G.",
          family = "McCoy",
@@ -20,10 +20,10 @@ Authors@R: c(
          comment = c(ORCID = "0000-0002-0061-8359")),
   person(given = "Martin",
          family = "Chilvers", 
-         role = "aut",
+         role = c("aut", "ths"),
          email = "chilvers@msu.edu ",
          comment = c(ORCID = "0000-0001-8832-1666")),
-         person(given = "Zhian N.",
+  person(given = "Zhian N.",
          family = "Kamvar",
          role = c("ctb", "rev"),
          comment = c(ORCID = "0000-0003-1458-7108")),
@@ -50,7 +50,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests: ape, dplyr, knitr, rmarkdown, testthat, vegan, vdiffr
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Language: en-US
 URL: https://github.com/openplantpathology/hagis,
         https://openplantpathology.github.io/hagis/
@@ -60,11 +60,11 @@ X-schema.org-keywords: plant-pathology, pathotype, pathogen-survey,
         virulence analysis, differential set, assessment scale
 X-schema.org-isPartOf: https://openplantpathology.org
 NeedsCompilation: no
-Packaged: 2020-12-08 23:59:38 UTC; adamsparks
+Packaged: 2021-09-30 02:58:08 UTC; adamsparks
 Author: Austin G. McCoy [aut, ccp] (<https://orcid.org/0000-0003-2483-4184>),
   Zachary Noel [aut, ccp] (<https://orcid.org/0000-0001-6375-8300>),
   Adam H. Sparks [aut, cre] (<https://orcid.org/0000-0002-0061-8359>),
-  Martin Chilvers [aut] (<https://orcid.org/0000-0001-8832-1666>),
+  Martin Chilvers [aut, ths] (<https://orcid.org/0000-0001-8832-1666>),
   Zhian N. Kamvar [ctb, rev] (<https://orcid.org/0000-0003-1458-7108>),
   Michigan Soybean Promotion Committee [fnd],
   Project GREEEN [fnd],
@@ -72,4 +72,4 @@ Author: Austin G. McCoy [aut, ccp] (<https://orcid.org/0000-0003-2483-4184>),
   GRDC Project DAQ00186 [fnd]
 Maintainer: Adam H. Sparks <adamhsparks@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-12-09 05:20:03 UTC
+Date/Publication: 2021-09-30 05:00:02 UTC

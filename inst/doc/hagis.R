@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
 )
 
 ## ----load_data----------------------------------------------------------------
-library(hagis)
+library("hagis")
 head(P_sojae_survey)
 
 ## ----remove-gene--------------------------------------------------------------
@@ -110,7 +110,9 @@ Rps.plot <- Rps.plot +
 Rps.plot
 
 ## ----use-Colors---------------------------------------------------------------
-autoplot(Rps.summary, type = "percentage", color = "#18453b") +
+autoplot(Rps.summary,
+         type = "percentage",
+         color = "#18453b") +
   theme_bw() +
   theme(text = element_text(face = "bold",
                             family = "serif"))
