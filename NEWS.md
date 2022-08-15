@@ -1,3 +1,12 @@
+
+# hagis 3.1.4
+
+## Minor changes
+
+* Update outdated URLs.
+
+* Update test infrastructure.
+
 # hagis 3.1.3
 
 ## Minor changes
@@ -18,7 +27,7 @@ This allows for greater flexibility when analysing the data as sample names are 
 
 * Improved documentation formatting
 
-* Update roxygen details
+* Update ROxygen details
 
 * Fixes incomplete end of line in test-create_binary_matrix.R
 
