@@ -11,7 +11,7 @@
 
 <meta name="author" content="Austin McCoy and Zachary Noel" />
 
-<meta name="date" content="2022-08-14" />
+<meta name="date" content="2023-04-25" />
 
 <title>hagis: Tools for Analysis of Plant Pathogen Pathotype Complexities, Distributions and Diversity</title>
 
@@ -299,23 +299,17 @@ overflow-y: auto;
 border: 1px solid #ddd;
 border-radius: 4px;
 }
-.tabset-dropdown > .nav-tabs > li.active:before {
-content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+content: "\e259";
 font-family: 'Glyphicons Halflings';
 display: inline-block;
 padding: 10px;
 border-right: 1px solid #ddd;
 }
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-content: "";
-border: none;
-}
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-content: "";
+content: "\e258";
 font-family: 'Glyphicons Halflings';
-display: inline-block;
-padding: 10px;
-border-right: 1px solid #ddd;
+border: none;
 }
 .tabset-dropdown > .nav-tabs > li.active {
 display: block;
@@ -359,24 +353,23 @@ display: none;
 <h1 class="title toc-ignore">hagis: Tools for Analysis of Plant Pathogen
 Pathotype Complexities, Distributions and Diversity</h1>
 <h4 class="author">Austin McCoy and Zachary Noel</h4>
-<h4 class="date">2022-08-14</h4>
+<h4 class="date">2023-04-25</h4>
 
 </div>
 
 
 <div id="getting-started-with-hagis" class="section level2">
-<h2>Getting Started With <em>hagis</em></h2>
+<h2>Getting Started With {hagis}</h2>
 <p>The following examples are based on a dataset from Michigan State
 University <em>Phytophthora sojae</em> surveys for soybean phytophthora
 root rot pathotyping efforts.</p>
 <p>First you’ll want to load in your data set, for right now let’s use a
-practice data set made for the <em>hagis</em> package, named
+practice data set made for the {hagis} package, named
 <code>P_sojae_survey</code>. The data set is available in your R session
-automatically when you load the <em>hagis</em> package.</p>
+automatically when you load the {hagis} package.</p>
 <pre class="r"><code>library(&quot;hagis&quot;)
 head(P_sojae_survey)
 #&gt;    Isolate         Line         Rps Total HR (1) Lesion (2)
-#&gt;     &lt;char&gt;       &lt;char&gt;      &lt;char&gt; &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
 #&gt; 1:       1     Williams susceptible    10      0          0
 #&gt; 2:       1       Harlon          1a    10      4          0
 #&gt; 3:       1 Harosoy 13xx          1b     8      0          0
@@ -384,7 +377,6 @@ head(P_sojae_survey)
 #&gt; 5:       1    PI 103091          1d     9      2          0
 #&gt; 6:       1  Williams 82          1k    10      0          0
 #&gt;    Lesion to cotyledon (3) Dead (4) total.susc total.resis perc.susc perc.resis
-#&gt;                      &lt;int&gt;    &lt;int&gt;      &lt;int&gt;       &lt;int&gt;     &lt;int&gt;      &lt;int&gt;
 #&gt; 1:                       0       10         10           0       100          0
 #&gt; 2:                       0        6          6           4        60         40
 #&gt; 3:                       0        8          8           0       100          0
@@ -403,7 +395,6 @@ third, <code>x</code>, is where to look and make the changes.</p>
        x = P_sojae_survey$Rps)
 head(P_sojae_survey)
 #&gt;    Isolate         Line         Rps Total HR (1) Lesion (2)
-#&gt;     &lt;char&gt;       &lt;char&gt;      &lt;char&gt; &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
 #&gt; 1:       1     Williams susceptible    10      0          0
 #&gt; 2:       1       Harlon          1a    10      4          0
 #&gt; 3:       1 Harosoy 13xx          1b     8      0          0
@@ -411,7 +402,6 @@ head(P_sojae_survey)
 #&gt; 5:       1    PI 103091          1d     9      2          0
 #&gt; 6:       1  Williams 82          1k    10      0          0
 #&gt;    Lesion to cotyledon (3) Dead (4) total.susc total.resis perc.susc perc.resis
-#&gt;                      &lt;int&gt;    &lt;int&gt;      &lt;int&gt;       &lt;int&gt;     &lt;int&gt;      &lt;int&gt;
 #&gt; 1:                       0       10         10           0       100          0
 #&gt; 2:                       0        6          6           4        60         40
 #&gt; 3:                       0        8          8           0       100          0
@@ -425,15 +415,15 @@ susceptible, inoculated, plants to determine effective resistance genes,
 pathotype diversity and frequency, as well as individual isolates
 pathotypes.</p>
 <p>To help ensure that the proper data are used in calculations, the
-user is asked to provide some information that instruct <em>hagis</em>
-about what data to use.</p>
+user is asked to provide some information that instruct {hagis} about
+what data to use.</p>
 <hr />
 </div>
 <div id="function-arguments-used-in-hagis" class="section level2">
 <h2>Function Arguments Used in hagis</h2>
-<p>We have striven to make <em>hagis</em> as intuitive to use as
-possible. Part of that means that we have used the same arguments for
-the three main functions, <code>summarize_gene()</code>,
+<p>We have striven to make {hagis} as intuitive to use as possible. Part
+of that means that we have used the same arguments for the three main
+functions, <code>summarize_gene()</code>,
 <code>calculate_complexities()</code> and
 <code>calculate_diversities()</code>. Each of these functions take the
 same arguments:</p>
@@ -458,8 +448,8 @@ which identifies the genes tested</p></li>
 <li><p><code>perc_susc</code> specifies the column header for the column
 which identifies the percent susceptible plants for each gene</p></li>
 </ul>
-<p>Ordinarily you would use functions in <em>hagis</em> or other R
-packages like this:</p>
+<p>Ordinarily you would use functions in {hagis} or other R packages
+like this:</p>
 <pre class="r"><code>Rps.summary &lt;- summarize_gene(
   x = P_sojae_survey,
   cutoff = 60,
@@ -470,10 +460,10 @@ packages like this:</p>
 )</code></pre>
 <p>However, because the functions share arguments we can create a
 <code>list()</code> of arguments and share them with some of the
-functions from <em>hagis</em>. First, we make a list of the arguments
-that <code>summarize_gene()</code>, <code>calculate_diversities()</code>
-and <code>calculate_complexities()</code> use that specify our inputs
-based on our example data:</p>
+functions from {hagis}. First, we make a list of the arguments that
+<code>summarize_gene()</code>, <code>calculate_diversities()</code> and
+<code>calculate_complexities()</code> use that specify our inputs based
+on our example data:</p>
 <pre class="r"><code>hagis_args &lt;- list(
   x = P_sojae_survey,
   cutoff = 60,
@@ -502,7 +492,6 @@ the isolates tested which are pathogenic on each gene
 
 Rps.summary
 #&gt;            gene N_virulent_isolates percent_pathogenic
-#&gt;          &lt;char&gt;               &lt;num&gt;              &lt;num&gt;
 #&gt;  1: susceptible                  21          100.00000
 #&gt;  2:          1a                  21          100.00000
 #&gt;  3:          1b                  15           71.42857
@@ -610,8 +599,8 @@ pander(Rps.summary)</code></pre>
 </table>
 <div id="plotting-rps-summary-data" class="section level3">
 <h3>Plotting Rps Summary Data</h3>
-<p><em>hagis</em> also provides functions to quickly graph your data
-using <code>ggplot2</code>.</p>
+<p>{hagis} also provides functions to quickly graph your data using
+<code>ggplot2</code>.</p>
 <p>Two functions are provided to plot the summary depending on your
 needs. If you need the frequency, use
 <code>autoplot(Rps.summary, type = &quot;percentage&quot;)</code>, or if you
@@ -650,7 +639,6 @@ complexities
 #&gt; 
 #&gt; Grouped Complexities
 #&gt;     complexity frequency distribution
-#&gt;         &lt;fctr&gt;     &lt;int&gt;        &lt;int&gt;
 #&gt;  1:          1         0            0
 #&gt;  2:          2         0            0
 #&gt;  3:          3         0            0
@@ -668,7 +656,6 @@ complexities
 #&gt; 
 #&gt; Individual Complexities
 #&gt;     sample N_samp
-#&gt;     &lt;char&gt;  &lt;num&gt;
 #&gt;  1:      1     10
 #&gt;  2:      2     10
 #&gt;  3:      3     10
@@ -1006,9 +993,9 @@ generated.</p>
 <div id="table-of-diversities" class="section level3">
 <h3>Table of Diversities</h3>
 <p>To generate a table of diversities, use
-<code>diversities_table()</code>. <em>hagis</em> will automatically
-create a <code>pander</code> object for you. This is because it is much
-easier to read the resulting table in the console than the raw
+<code>diversities_table()</code>. {hagis} will automatically create a
+<code>pander</code> object for you. This is because it is much easier to
+read the resulting table in the console than the raw
 <code>data.frame</code> and insert into reports.</p>
 <pre class="r"><code>diversities_table(diversity)</code></pre>
 <table style="width:62%;">
@@ -1102,8 +1089,8 @@ easier to read the resulting table in the console than the raw
 </tbody>
 </table>
 <p>To generate a table of individual pathotypes, use
-<code>individual_pathotypes()</code>. Here again, <em>hagis</em>
-provides a <code>pander</code> object for ease of use.</p>
+<code>individual_pathotypes()</code>. Here again, {hagis} provides a
+<code>pander</code> object for ease of use.</p>
 </div>
 <div id="table-of-individual-pathotypes" class="section level3">
 <h3>Table of Individual Pathotypes</h3>
@@ -1212,9 +1199,9 @@ provides a <code>pander</code> object for ease of use.</p>
 <h1>Advanced Plotting</h1>
 <div id="hagis-autoplot-objects" class="section level2">
 <h2>hagis autoplot Objects</h2>
-<p>Since <em>hagis</em> uses <code>ggplot2</code> to generate its plots,
-you can easily theme the outputs using common <code>ggplot2</code>
-themes and other options provided by <em>hagis</em> directly through
+<p>Since {hagis} uses <code>ggplot2</code> to generate its plots, you
+can easily theme the outputs using common <code>ggplot2</code> themes
+and other options provided by {hagis} directly through
 <code>autoplot()</code>.</p>
 <pre class="r"><code>library(ggplot2)
 

@@ -8,7 +8,7 @@
 #' @inheritParams summarize_gene
 #' @examples
 #'
-#' # Using the built-in data set, P_sojae_survey
+#' # Using the built-in data set, `P_sojae_survey`
 #' data(P_sojae_survey)
 #'
 #' P_sojae_survey
@@ -44,9 +44,6 @@ create_binary_matrix <- function(x,
     .perc_susc = perc_susc
   )
 
-  # CRAN NOTE avoidance
-  susceptible.1 <- NULL
-  
   # summarise the reactions, create susceptible.1 column, see
   # internal_functions.R
   x <- .binary_cutoff(.x = x, .cutoff = cutoff)
