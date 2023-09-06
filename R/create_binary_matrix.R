@@ -1,12 +1,14 @@
 
-#' Create binary data matrix
+#' Create Binary Data Matrix From Pathotype Data
 #'
 #' @description Creates a binary data matrix from pathotype data representing
-#'  the pathotype of each isolate. This binary data matrix can be used to
+#'  the pathotype of each isolate.  This binary data matrix can be used to
 #'  visualize beta-diversity of pathotypes using \CRANpkg{vegan} and
 #'  \CRANpkg{ape}.
+#'  
 #' @inheritParams summarize_gene
-#' @examples
+#' @autoglobal
+#' @examplesIf interactive()
 #'
 #' # Using the built-in data set, `P_sojae_survey`
 #' data(P_sojae_survey)

@@ -3,7 +3,7 @@
 \docType{data}
 \name{sample_meta}
 \alias{sample_meta}
-\title{\emph{Phytophthora sojae} survey example metadata}
+\title{\emph{Phytophthora sojae} Survey Example Metadata}
 \format{
 An object of class \code{data.frame} with 21 observations of 2 variables
 \describe{
@@ -23,8 +23,9 @@ Metadata to accompany internal data from a \emph{Phytophthora sojae} survey used
 for an example in the "Beta-diversity Analyses" vignette.
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 data(sample_meta)
 sample_meta
-
+\dontshow{\}) # examplesIf}
 }
 \keyword{datasets}

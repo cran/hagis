@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_binary_matrix.R
 \name{create_binary_matrix}
 \alias{create_binary_matrix}
-\title{Create binary data matrix}
+\title{Create Binary Data Matrix From Pathotype Data}
 \usage{
 create_binary_matrix(x, cutoff, control, sample, gene, perc_susc)
 }
@@ -28,11 +28,12 @@ a \link{matrix} object
 }
 \description{
 Creates a binary data matrix from pathotype data representing
-the pathotype of each isolate. This binary data matrix can be used to
+the pathotype of each isolate.  This binary data matrix can be used to
 visualize beta-diversity of pathotypes using \CRANpkg{vegan} and
 \CRANpkg{ape}.
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # Using the built-in data set, `P_sojae_survey`
 data(P_sojae_survey)
@@ -47,5 +48,5 @@ final_matrix <- create_binary_matrix(x = P_sojae_survey,
                                     gene = "Rps",
                                     perc_susc = "perc.susc")
 final_matrix
-
+\dontshow{\}) # examplesIf}
 }

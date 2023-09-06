@@ -1,8 +1,7 @@
 
-#' Calculate and summarize distribution of susceptibilities by gene
+#' Calculate and Summarize Distribution of Susceptibilities by Gene
 #'
-#' @description This function will calculate the distribution of
-#' susceptibilities by gene.
+#' @description Calculate the distribution of susceptibilities by gene.
 #' 
 #' @param x a `data.frame` containing the data.
 #' @param cutoff value for percent susceptible cutoff. `Numeric`.
@@ -14,7 +13,8 @@
 #' @param perc_susc column providing the percent susceptible reactions.
 #'  `Character`.
 #'
-#' @examples
+#' @autoglobal
+#' @examplesIf interactive()
 #' # Using the built-in data set, `P_sojae_survey`
 #' data(P_sojae_survey)
 #'
@@ -75,7 +75,7 @@ summarize_gene <- function(x,
 #' @export
 ggplot2::autoplot
 
-#' Plot hagis summary objects
+#' Plot hagis Summary Objects
 #'
 #' @description Creates a \CRANpkg{ggplot2} object of the gene summaries
 #' calculated by [summarize_gene()]
@@ -91,7 +91,8 @@ ggplot2::autoplot
 #' @param ... passed to the chosen `geom(s)`
 #' @return A \CRANpkg{ggplot2} plot
 #' @method autoplot hagis.gene.summary
-#' @examples
+#' @autoglobal
+#' @examplesIf interactive()
 #' # Using the built-in data set, `P_sojae_survey`
 #' data(P_sojae_survey)
 #'
@@ -148,7 +149,6 @@ autoplot.hagis.gene.summary <-
     }
 
     plot_count <- function(.data, .color) {
-      N_virulent_isolates <- NULL
       num_plot <- ggplot2::ggplot(data = .data,
                                   ggplot2::aes(x = stats::reorder(gene, order),
                                                y = N_virulent_isolates)) +

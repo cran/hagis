@@ -5,6 +5,7 @@ required <- c("ape", "vegan", "dplyr")
 
 if (!all(sapply(required, requireNamespace, quietly = TRUE)))
   knitr::opts_chunk$set(eval = FALSE)
+data.table::setDTthreads(1L)
 
 ## ----libraries, message=FALSE, warning=FALSE----------------------------------
 library("ape")

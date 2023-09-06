@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarize_gene.R
 \name{autoplot.hagis.gene.summary}
 \alias{autoplot.hagis.gene.summary}
-\title{Plot hagis summary objects}
+\title{Plot hagis Summary Objects}
 \usage{
 \method{autoplot}{hagis.gene.summary}(object, type, color = NULL, order = NULL, ...)
 }
@@ -30,6 +30,7 @@ Creates a \CRANpkg{ggplot2} object of the gene summaries
 calculated by \code{\link[=summarize_gene]{summarize_gene()}}
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Using the built-in data set, `P_sojae_survey`
 data(P_sojae_survey)
 
@@ -43,4 +44,5 @@ susc <- summarize_gene(x = P_sojae_survey,
 
 # Visualize the summary of genes
 autoplot(susc, type = "percentage")
+\dontshow{\}) # examplesIf}
 }

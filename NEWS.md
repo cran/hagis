@@ -1,3 +1,55 @@
+# hagis 3.1.11
+
+## Minor changes
+
+* Put more guardrails in place for CRAN.
+Ensure that all tests are skipped on CRAN using a universal statement rather than `skip_on_cran()`.
+
+* Use `data.table::setDTthreads(1L)` at the top of both vignettes.
+
+* Use `@examplesIf interactive()` for all examples so that they don't run on CRAN.
+
+## Bug fixes
+
+* Removes a redundant zzz.R file that had globals in it.
+This revealed that one of the autoplot functions was missing the `@autoglobal` tag, which has been added.
+
+# hagis 3.1.10
+
+## Minor changes
+
+* Skip _ALL_ tests on CRAN.
+Because, y'know, CRAN...
+
+# hagis 3.1.9
+
+## "Bug" fixes
+
+* Only run plotting examples if session is interactive to "fix" a "bug" with CRAN determining that the examples suddenly take too long to run.
+
+# hagis 3.1.8
+
+## Bug fixes
+
+* Fix "long running" tests.
+
+## Minor changes
+
+* Add Cain _et al._ paper to README.
+
+* Minor grammar edits.
+
+# hagis 3.1.7
+
+## Minor changes
+
+* Use {roxyglobals}.
+
+* Format package names as {package name} not `package name` or _package name_ in documentation.
+
+## Bug fixes
+
+* Use proper title case in function titles.
 
 # hagis 3.1.6
 

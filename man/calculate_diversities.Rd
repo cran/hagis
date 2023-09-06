@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_diversities.R
 \name{calculate_diversities}
 \alias{calculate_diversities}
-\title{Calculate diversities indices}
+\title{Calculate Diversities Indices}
 \usage{
 calculate_diversities(x, cutoff, control, sample, gene, perc_susc)
 }
@@ -35,9 +35,9 @@ hagis.diversities object containing
 }
 }
 \description{
-Calculates pathogen diversity indices.
+Calculate five pathogen diversity indices.
 
-This function calculates five diversity indices for the user.
+Diversity indices include:
 \itemize{
 \item Simple diversity index, which will show the proportion of unique pathotypes
 to total samples. As the values gets closer to 1, there is greater
@@ -67,6 +67,7 @@ of pathotypes.
 }
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Using the built-in data set, P_sojae_survey
 data(P_sojae_survey)
 
@@ -81,5 +82,5 @@ diversities <- calculate_diversities(x = P_sojae_survey,
                                      perc_susc = "perc.susc")
 
 diversities
-
+\dontshow{\}) # examplesIf}
 }

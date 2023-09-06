@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.height = 4
 )
+data.table::setDTthreads(1L)
 ```
 
 ## Getting Started With {hagis}
@@ -50,13 +51,13 @@ To help ensure that the proper data are used in calculations, the user is asked 
 
 ***
 
-## Function Arguments Used in hagis
+  ## Function Arguments Used in {hagis}
 
 We have striven to make {hagis} as intuitive to use as possible.
 Part of that means that we have used the same arguments for the three main functions, `summarize_gene()`, `calculate_complexities()` and `calculate_diversities()`.
 Each of these functions take the same arguments:
 
-* `x` this is your data set name, _e.g._ `P_sojae_survey` from the example above, allows for the function to identify where it will be pulling these columns (and their associated row values) from to use (_i.e._ your data collection Excel spreadsheet)
+* `x` this is your data set name, _e.g._, `P_sojae_survey` from the example above, allows for the function to identify where it will be pulling these columns (and their associated row values) from to use (_i.e._ your data collection Excel spreadsheet)
 
 * `cutoff` this value sets the cutoff for susceptible reactions.
 For example, `cutoff = 60` means that all genes with 60% or more of the plants rated susceptible will be treated as susceptible.
@@ -123,7 +124,7 @@ pander(Rps.summary)
 
 ### Plotting Rps Summary Data
 
-{hagis} also provides functions to quickly graph your data using `ggplot2`.
+{hagis} also provides functions to quickly graph your data using {ggplot2}.
 
 Two functions are provided to plot the summary depending on your needs.
 If you need the frequency, use `autoplot(Rps.summary, type = "percentage")`, or if you desire the distribution `autoplot(Rps.summary, type = "count")`.
@@ -237,9 +238,9 @@ individual_pathotypes(diversity)
 
 # Advanced Plotting {#AdvancedPlotting}
 
-## hagis autoplot Objects
+## {hagis} autoplot() Objects
 
-Since {hagis} uses `ggplot2` to generate its plots, you can easily theme the outputs using common `ggplot2` themes and other options provided by {hagis} directly through `autoplot()`.
+Since {hagis} uses {ggplot2} to generate its plots, you can easily theme the outputs using common {ggplot2} themes and other options provided by {hagis} directly through `autoplot()`.
 
 ```{r set-up-adv.plot}
 library(ggplot2)
@@ -251,7 +252,7 @@ Rps.plot
 
 ### Changing the ggplot2 Theme
 
-Use _ggplot2's_ `theme_minimal()` theme.
+Use {ggplot2}'s `theme_minimal()` theme.
 
 ```{r change-plot-theme}
 Rps.plot <- Rps.plot +
@@ -285,7 +286,7 @@ Rps.plot
 
 ### Use Colors in Autoplot Objects
 
-You can use named, _e.g._ "red", "yellow", "blue", colors in R or you can use custom hexadecimal color codes.
+You can use named, _e.g._, "red", "yellow", "blue", colors in R or you can use custom hexadecimal color codes.
 Illustrated below is using Michigan State University (MSU) Green, hex code #18453b, using `theme_bw()` with a serif font.
 
 ```{r use-Colors}

@@ -40,8 +40,11 @@ of *P. sojae*.
 
 However, the package is not only useful for *P. sojae* work. It was
 built to be useful for other plant pathogen gene-for-gene interaction
-systems, *e.g.* rusts or canola blackleg, *Leptosphaeria maculans*. The
-goal of this package is to provide all the necessary analyses needed
+systems, *e.g.*, wheat rusts, but it has been used in animal science as
+well, see [Cain *et al.*
+2022](https://doi.org/10.1186/s13071-022-05533-y).
+
+The goal of this package is to provide all the necessary analyses needed
 when conducting a pathotype surveys, including: distribution of
 susceptibilities (effective and non-effective resistance genes),
 distribution of pathotype complexities with statistics, pathotype
@@ -57,7 +60,8 @@ using a built-in data set.
 
 ### Stable Version
 
-A stable version of {hagis} is available from CRAN.
+A CRAN version of {hagis} is available but lags behind the GitHub
+version. They both will give exactly the same results.
 
 ``` r
 install.packages("hagis")
@@ -65,11 +69,8 @@ install.packages("hagis")
 
 ### Development Version
 
-A development version is available from from GitHub. If you wish to
-install the development version that may have new features or bug fixes
-before the CRAN version does (but also may not work properly), please
-install the remotes package, available from CRAN. We strive to keep the
-main branch on GitHub functional and working properly.
+A development version is available from from GitHub that may provide bug
+fixes or new features not yet available from CRAN.
 
 ``` r
 if (!require("remotes")) {
@@ -102,7 +103,7 @@ citation("hagis")
     ##   McCoy AG, Noel ZA, Sparks AH, Chilvers MI (????). _hagis: Analysis of
     ##   Plant Pathogen Pathotype Complexities, Distributions and Diversity_.
     ##   doi:10.5281/zenodo.2619820 <https://doi.org/10.5281/zenodo.2619820>,
-    ##   R package version 3.1.4,
+    ##   R package version 3.1.10.9000,
     ##   <https://openplantpathology.github.io/hagis/>.
     ## 
     ## To see these entries in BibTeX format, use 'print(<citation>,
@@ -128,3 +129,8 @@ By contributing to this project, you agree to abide by its terms.
 > Causing Stem and Root Rot of Soybean. Molecular Plant-Microbe
 > Interactions 32.12 (Nov 2019) p. 1574-1576. DOI:
 > [10.1094/MPMI-07-19-0180-A](https://doi.org/10.1094/MPMI-07-19-0180-A)
+
+> Cain, Norris, Ripley, Suri, Finnerty, Gravatte, and Nielsen, 2022. The
+> microbial community associated with Parascaris spp. infecting juvenile
+> horses. Parasites & Vectors, 15(1), pp.1-17.
+> [10.1186/s13071-022-05533-y](https://doi.org/10.1186/s13071-022-05533-y)

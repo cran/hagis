@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_complexities.R
 \name{calculate_complexities}
 \alias{calculate_complexities}
-\title{Calculate distribution of complexities by sample}
+\title{Calculate Distribution of Complexities by Sample}
 \usage{
 calculate_complexities(x, cutoff, control, sample, gene, perc_susc)
 }
@@ -36,10 +36,10 @@ individual complexities}
 }
 }
 \description{
-This function will calculate the distribution of
-susceptibilities by sample
+Calculate the distribution of susceptibilities by sample id.
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # Using the built-in data set, `P_sojae_survey`
 data(P_sojae_survey)
@@ -56,5 +56,5 @@ complexities <- calculate_complexities(x = P_sojae_survey,
 complexities
 
 summary(complexities)
-
+\dontshow{\}) # examplesIf}
 }

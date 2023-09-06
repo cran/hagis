@@ -124,8 +124,8 @@ test_that("print.hagis.complexities() returns a proper summary", {
                ))
 })
 
-test_that("pander.summary.complexities returns a properly formatted table",
-          {x <- capture.output(pander(summary(complexities)))
+test_that("pander.summary.complexities returns a properly formatted table", {
+            x <- capture.output(pander(summary(complexities)))
             expect_type(x, "character")
             expect_equal(x[[1]], "")
             expect_equal(x[[2]], "------------------------")

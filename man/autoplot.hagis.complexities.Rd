@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_complexities.R
 \name{autoplot.hagis.complexities}
 \alias{autoplot.hagis.complexities}
-\title{Plot hagis complexities objects}
+\title{Plot hagis Complexities Objects}
 \usage{
 \method{autoplot}{hagis.complexities}(object, type, color = NULL, order = NULL, ...)
 }
@@ -32,6 +32,7 @@ distribution (number per complexity) calculated by
 \code{\link[=calculate_complexities]{calculate_complexities()}}.
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Using the built-in data set, `P_sojae_survey`
 data(P_sojae_survey)
 
@@ -48,5 +49,5 @@ autoplot(complexities, type = "count")
 
 # Visualize the frequency (percentages)
 autoplot(complexities, type = "percentage")
-
+\dontshow{\}) # examplesIf}
 }

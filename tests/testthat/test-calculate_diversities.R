@@ -152,8 +152,8 @@ test_that("print.hagis.diversities() returns a proper summary", {
 })
 
 test_that("pander.hagis.diversities returns a proper table of indices and
-          caption",
-          {x <- utils::capture.output(pander::pander(diversities))
+          caption", {
+            x <- utils::capture.output(pander::pander(diversities))
             expect_equal(
               head(x),
               c(

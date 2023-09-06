@@ -5,6 +5,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.height = 4
 )
+data.table::setDTthreads(1L)
 
 ## ----load_data----------------------------------------------------------------
 library("hagis")

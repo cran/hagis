@@ -1,4 +1,4 @@
-#' _Phytophthora sojae_ survey example data
+#' _Phytophthora sojae_ Survey Example Data
 #'
 #' Data from a _Phytophthora sojae_ survey
 #'
@@ -30,13 +30,13 @@
 #' @source Data from an ongoing 2017 _Phytophthora sojae_ survey in Michigan,
 #' conducted by A. G. McCoy _et al._.
 #'
-#' @examples
+#' @examplesIf interactive()
 #' data(P_sojae_survey)
 #' P_sojae_survey
 #'
 "P_sojae_survey"
 
-#' _Phytophthora sojae_ survey example metadata
+#' _Phytophthora sojae_ Survey Example Metadata
 #'
 #' Metadata to accompany internal data from a _Phytophthora sojae_ survey used
 #' for an example in the "Beta-diversity Analyses" vignette.
@@ -56,7 +56,7 @@
 #' @source Data from an ongoing 2017 _Phytophthora sojae_ survey in Michigan,
 #' conducted by A. G. McCoy _et al._.
 #'
-#' @examples
+#' @examplesIf interactive()
 #' data(sample_meta)
 #' sample_meta
 #'

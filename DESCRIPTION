@@ -1,7 +1,7 @@
 Package: hagis
 Title: Analysis of Plant Pathogen Pathotype Complexities, Distributions
         and Diversity
-Version: 3.1.6
+Version: 3.1.11
 Authors@R: c(
   person(given = "Austin G.",
          family = "McCoy",
@@ -48,7 +48,8 @@ Imports: data.table, ggplot2, pander, stats, utils
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: ape, dplyr, knitr, rmarkdown, testthat, vegan, vdiffr
+Suggests: ape, dplyr, knitr, rmarkdown, testthat, vegan, vdiffr,
+        roxyglobals
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3
 Language: en-US
@@ -59,8 +60,10 @@ X-schema.org-applicationCategory: Tools
 X-schema.org-keywords: plant-pathology, pathotype, pathogen-survey,
         virulence analysis, differential set, assessment scale
 X-schema.org-isPartOf: https://openplantpathology.org
+Config/roxyglobals/filename: globals.R
+Config/roxyglobals/unique: FALSE
 NeedsCompilation: no
-Packaged: 2023-04-25 07:29:09 UTC; adamsparks
+Packaged: 2023-09-06 10:08:04 UTC; adamsparks
 Author: Austin G. McCoy [aut, ccp] (<https://orcid.org/0000-0003-2483-4184>),
   Zachary Noel [aut, ccp] (<https://orcid.org/0000-0001-6375-8300>),
   Adam H. Sparks [aut, cre] (<https://orcid.org/0000-0002-0061-8359>),
@@ -72,4 +75,4 @@ Author: Austin G. McCoy [aut, ccp] (<https://orcid.org/0000-0003-2483-4184>),
   GRDC Project DAQ00186 [fnd]
 Maintainer: Adam H. Sparks <adamhsparks@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-04-25 07:50:02 UTC
+Date/Publication: 2023-09-06 10:30:02 UTC

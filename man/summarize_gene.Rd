@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarize_gene.R
 \name{summarize_gene}
 \alias{summarize_gene}
-\title{Calculate and summarize distribution of susceptibilities by gene}
+\title{Calculate and Summarize Distribution of Susceptibilities by Gene}
 \usage{
 summarize_gene(x, cutoff, control, sample, gene, perc_susc)
 }
@@ -34,10 +34,10 @@ gene in the \code{gene} column}
 }
 }
 \description{
-This function will calculate the distribution of
-susceptibilities by gene.
+Calculate the distribution of susceptibilities by gene.
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Using the built-in data set, `P_sojae_survey`
 data(P_sojae_survey)
 
@@ -51,5 +51,5 @@ susc <- summarize_gene(x = P_sojae_survey,
                        gene = "Rps",
                        perc_susc = "perc.susc")
 susc
-
+\dontshow{\}) # examplesIf}
 }
