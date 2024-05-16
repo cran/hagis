@@ -38,7 +38,7 @@ hagis_args <- list(
   perc_susc = "perc.susc"
 )
 
-## ---- echo=TRUE---------------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 Rps.summary <- do.call(summarize_gene, hagis_args)
 
 Rps.summary
@@ -99,8 +99,7 @@ Rps.plot
 
 ## ----change-plot-font---------------------------------------------------------
 Rps.plot <- Rps.plot +
-  theme(text = element_text(face = "bold",
-                            family = "serif"))
+  theme(text = element_text(face = "bold", family = "serif"))
 
 Rps.plot
 
@@ -111,19 +110,17 @@ Rps.plot <- Rps.plot +
 Rps.plot
 
 ## ----use-Colors---------------------------------------------------------------
-autoplot(Rps.summary,
-         type = "percentage",
-         color = "#18453b") +
+autoplot(Rps.summary, type = "percentage", color = "#18453b") +
   theme_bw() +
-  theme(text = element_text(face = "bold",
-                            family = "serif"))
+  theme(text = element_text(face = "bold", family = "serif"))
 
 ## ----sort-axis----------------------------------------------------------------
-autoplot(Rps.summary,
-          type = "percentage",
-          color = "#18453b",
-          order = "ascending") +
+autoplot(
+  Rps.summary,
+  type = "percentage",
+  color = "#18453b",
+  order = "ascending"
+) +
   theme_bw() +
-  theme(text = element_text(face = "bold",
-                            family = "serif"))
+  theme(text = element_text(face = "bold", family = "serif"))
 

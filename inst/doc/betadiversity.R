@@ -125,7 +125,7 @@ pathotype.disp.TukeyHSD
 plot(pathotype.disp, hull = FALSE, ellipse = TRUE)
 
 ## ----adonis-------------------------------------------------------------------
-pathotype.adonis <- adonis(P_sojae_survey.matrix.jaccard ~ groups)
+pathotype.adonis <- adonis2(P_sojae_survey.matrix.jaccard ~ groups)
 
 pathotype.adonis
 

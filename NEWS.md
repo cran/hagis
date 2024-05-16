@@ -1,3 +1,15 @@
+# hagis 3.1.12
+
+## Minor changes
+
+* Standardise and tidy up text for functions' returned values in documentation.
+
+## Bug fixes
+
+* Fixes examples in "Beta-diversity Analysis with hagis" vignette to work with new versions of {vegan}.
+
+* Corrects {vegan} example where $R^2$ was incorrectly reported.
+
 # hagis 3.1.11
 
 ## Minor changes
