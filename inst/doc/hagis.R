@@ -13,20 +13,22 @@ head(P_sojae_survey)
 
 ## ----remove-gene--------------------------------------------------------------
 P_sojae_survey$Rps <-
-  gsub(pattern = "Rps ",
-       replacement = "",
-       x = P_sojae_survey$Rps)
+  gsub(
+    pattern = "Rps ",
+    replacement = "",
+    x = P_sojae_survey$Rps
+  )
 head(P_sojae_survey)
 
 ## ----example-function, eval=FALSE---------------------------------------------
-#  Rps.summary <- summarize_gene(
-#    x = P_sojae_survey,
-#    cutoff = 60,
-#    control = "susceptible",
-#    sample = "Isolate",
-#    gene = "Rps",
-#    perc_susc = "perc.susc"
-#  )
+# Rps.summary <- summarize_gene(
+#   x = P_sojae_survey,
+#   cutoff = 60,
+#   control = "susceptible",
+#   sample = "Isolate",
+#   gene = "Rps",
+#   perc_susc = "perc.susc"
+# )
 
 ## ----shared-args--------------------------------------------------------------
 hagis_args <- list(
@@ -61,7 +63,7 @@ complexities
 ## ----pander-print-complexities------------------------------------------------
 pander(complexities$grouped_complexities)
 
-pander(complexities$indvidual_complexities)
+pander(complexities$individual_complexities)
 
 ## ----summary-complexities-----------------------------------------------------
 pander(summary(complexities))

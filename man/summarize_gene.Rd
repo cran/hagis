@@ -29,8 +29,8 @@ An object of class \code{hagis.gene.summary} is a\cr \code{\link[data.table:data
 containing the following components columns
 \describe{
 \item{gene}{the gene}
-\item{N_virulent_isolates}{the total number virulent isolates for a given
-gene in the \code{gene} column}
+\item{N_virulent_isolates}{the total number virulent isolates for a
+given gene in the \code{gene} column}
 \item{percent_pathogenic}{the frequency with which a gene is pathogenic}
 }
 }
@@ -38,19 +38,21 @@ gene in the \code{gene} column}
 Calculate the distribution of susceptibilities by gene.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Using the built-in data set, `P_sojae_survey`
 data(P_sojae_survey)
 
 P_sojae_survey
 
 # calculate susceptibilities with a 60 \% cutoff value
-susc <- summarize_gene(x = P_sojae_survey,
-                       cutoff = 60,
-                       control = "susceptible",
-                       sample = "Isolate",
-                       gene = "Rps",
-                       perc_susc = "perc.susc")
+susc <- summarize_gene(
+  x = P_sojae_survey,
+  cutoff = 60,
+  control = "susceptible",
+  sample = "Isolate",
+  gene = "Rps",
+  perc_susc = "perc.susc"
+)
 susc
 \dontshow{\}) # examplesIf}
 }

@@ -32,17 +32,19 @@ distribution (number per complexity) calculated by
 \code{\link[=calculate_complexities]{calculate_complexities()}}.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Using the built-in data set, `P_sojae_survey`
 data(P_sojae_survey)
 
 # calculate susceptibilities with a 60 \% cutoff value
-complexities <- calculate_complexities(x = P_sojae_survey,
-                                       cutoff = 60,
-                                       control = "susceptible",
-                                       sample = "Isolate",
-                                       gene = "Rps",
-                                       perc_susc = "perc.susc")
+complexities <- calculate_complexities(
+  x = P_sojae_survey,
+  cutoff = 60,
+  control = "susceptible",
+  sample = "Isolate",
+  gene = "Rps",
+  perc_susc = "perc.susc"
+)
 
 # Visualize the distribution (count or actual values)
 autoplot(complexities, type = "count")

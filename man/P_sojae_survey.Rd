@@ -5,14 +5,14 @@
 \alias{P_sojae_survey}
 \title{\emph{Phytophthora sojae} Survey Example Data}
 \format{
-An object of class \code{data.table} with 294 observations of 12 variables
-\describe{
+An object of class \code{data.table} with 294 observations of 12
+variables \describe{
 \item{Isolate}{\emph{P. sojae} isolate identifier}
 \item{Line}{Soybean cultivar}
 \item{Rps}{\emph{Rps} gene identifier}
 \item{Total}{Total number of plants inoculated}
-\item{HR (1)}{Number of plants that exhibit a hypersensitive response after
-inoculation}
+\item{HR (1)}{Number of plants that exhibit a hypersensitive response
+after inoculation}
 \item{Lesion (2)}{Number of plants that develop a lesion at inoculation
 site}
 \item{Lesion to cotyledon (3)}{Number of plants that develop a lesion,
@@ -35,7 +35,7 @@ data(P_sojae_survey)
 Data from a \emph{Phytophthora sojae} survey
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 data(P_sojae_survey)
 P_sojae_survey
 \dontshow{\}) # examplesIf}
